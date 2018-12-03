@@ -30,3 +30,13 @@ class AppleFirmwareClient(base_client.CauliflowerVestClient):
   def UploadPassphrase(self, target_id, passphrase, metadata):
     self._metadata = metadata
     super(AppleFirmwareClient, self).UploadPassphrase(target_id, passphrase)
+
+
+class AppleFirmwareNoAuthClient(AppleFirmwareClient):
+  """Client to perform Apple Firmware operations with machine auth."""
+
+  ESCROW_PATH = '/2apple_firmware/'
+
+  def RetrieveSecret(self, target_id, metadata):
+    self._metadata = metadata
+    return super(AppleFirmwareNoAuthClient, self).RetrieveSecret(target_id)
